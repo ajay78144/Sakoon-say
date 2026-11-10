@@ -1,0 +1,1451 @@
+<!-- ==========================================================================
+     SAKOONSAY - UNIFIED SACRED & CLINICAL SANCTUARY
+     ========================================================================== -->
+
+<!-- ======================================================
+     FIXED DUAL-ROW HEADER
+     Row 1 (topbar): Logo (left) + Buttons (right) — small compact
+     Row 2 (navbar): Navigation Links only — fluid/responsive
+     ====================================================== -->
+<header class="site-header">
+
+  <!-- === ROW 1: TOPBAR (Logo + Action Buttons) === -->
+  <div class="hdr-topbar">
+    <div class="hdr-topbar-inner">
+
+      <!-- Brand (Left) -->
+      <a href="#hero" class="brand-link" (click)="scrollTo('hero')">
+        <div class="brand-emblem-wrap">
+          <svg class="brand-lotus-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="46" stroke="url(#hGold)" stroke-width="2" stroke-dasharray="4 2"/>
+            <circle cx="50" cy="50" r="38" fill="url(#hPurple)" opacity="0.4"/>
+            <path d="M50 15 C45 35 32 46 50 68 C68 46 55 35 50 15Z" fill="url(#hGold)"/>
+            <path d="M50 68 C35 60 22 45 20 32 C30 35 42 48 50 68Z" fill="url(#hGoldD)" opacity="0.85"/>
+            <path d="M50 68 C65 60 78 45 80 32 C70 35 58 48 50 68Z" fill="url(#hGoldD)" opacity="0.85"/>
+            <path d="M50 68 C25 68 15 54 12 44 C22 48 38 58 50 68Z" fill="url(#hSaff)" opacity="0.9"/>
+            <path d="M50 68 C75 68 85 54 88 44 C78 48 62 58 50 68Z" fill="url(#hSaff)" opacity="0.9"/>
+            <circle cx="50" cy="68" r="4" fill="#D4AF37"/>
+            <defs>
+              <linearGradient id="hGold" x1="0" y1="0" x2="100" y2="100">
+                <stop offset="0%" stop-color="#F9E79F"/>
+                <stop offset="50%" stop-color="#D4AF37"/>
+                <stop offset="100%" stop-color="#B3861B"/>
+              </linearGradient>
+              <linearGradient id="hGoldD" x1="0" y1="0" x2="100" y2="100">
+                <stop offset="0%" stop-color="#D4AF37"/>
+                <stop offset="100%" stop-color="#B3861B"/>
+              </linearGradient>
+              <linearGradient id="hSaff" x1="0" y1="0" x2="100" y2="100">
+                <stop offset="0%" stop-color="#FF9800"/>
+                <stop offset="100%" stop-color="#E65100"/>
+              </linearGradient>
+              <radialGradient id="hPurple" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#4A306D"/>
+                <stop offset="100%" stop-color="#2E1A47" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">SAKOONSAY</span>
+          <span class="brand-subtitle">Sanctuary of Mind &amp; Soul</span>
+        </div>
+      </a>
+
+      <!-- Buttons (Right) -->
+      <div class="hdr-btn-group">
+        <!-- 432 Hz Audio -->
+        <button class="tb-audio-btn" (click)="toggleAmbientChimes()" [class.active]="chimesActive()" title="432 Hz Solfeggio Chimes">
+          <span class="audio-bars" [class.playing]="chimesActive()">
+            <span></span><span></span><span></span>
+          </span>
+          <span class="tb-btn-label">{{ chimesActive() ? '432Hz ▶' : '432Hz' }}</span>
+        </button>
+
+        <!-- Temple Bell -->
+        <button class="tb-icon-btn" (click)="playSacredBell()" title="Ring Sacred Bell">
+          <i class="fa-solid fa-bell"></i>
+        </button>
+
+        <!-- Enter Sanctuaries CTA (hide on mobile) -->
+        <a href="#portals" class="tb-cta-btn hdr-hide-xs">
+          <i class="fa-solid fa-sparkles"></i>
+          <span>Enter Sanctuaries</span>
+        </a>
+
+        <!-- Hamburger Toggle (shows on mobile only) -->
+        <button class="mobile-toggle-btn" (click)="toggleMobileMenu()" [class.open]="mobileMenuOpen()" aria-label="Toggle Menu">
+          <span class="ham-bar bar-1"></span>
+          <span class="ham-bar bar-2"></span>
+          <span class="ham-bar bar-3"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- === ROW 2: NAVBAR (Navigation Links Only) — hidden on mobile === -->
+  <nav class="hdr-navbar">
+    <div class="hdr-navbar-inner">
+      <a href="#portals" class="nav-item"><i class="fa-solid fa-archway"></i><span>Portals</span></a>
+      <a href="#stress-solutions" class="nav-item"><i class="fa-solid fa-heart-pulse"></i><span>Stress Solvers</span></a>
+      <a href="#navigator" class="nav-item"><i class="fa-solid fa-compass"></i><span>Navigator</span></a>
+      <a href="#breathing" class="nav-item"><i class="fa-solid fa-wind"></i><span>4-7-8 Calmer</span></a>
+      <a href="#virtual-diya" class="nav-item"><i class="fa-solid fa-fire"></i><span>Sacred Diya</span></a>
+      <a href="#peace-calculator" class="nav-item"><i class="fa-solid fa-gauge"></i><span>IPQ Score</span></a>
+      <a href="#wisdom-matrix" class="nav-item"><i class="fa-solid fa-scale-balanced"></i><span>Dual Matrix</span></a>
+      <a href="#sacred-gallery" class="nav-item"><i class="fa-regular fa-images"></i><span>Sanctum</span></a>
+    </div>
+  </nav>
+
+</header>
+
+<!-- Attractive Mobile Off-Canvas Sidebar / Drawer -->
+@if (mobileMenuOpen()) {
+  <div class="sidebar-backdrop" (click)="closeMobileMenu()"></div>
+}
+
+<aside class="mobile-sidebar-drawer glass-panel" [class.drawer-open]="mobileMenuOpen()">
+  <!-- Drawer Header -->
+  <div class="drawer-header">
+    <div class="drawer-brand">
+      <div class="drawer-emblem">
+        <i class="fa-solid fa-om text-gold"></i>
+      </div>
+      <div>
+        <h4 class="drawer-title">SAKOONSAY</h4>
+        <span class="drawer-sub">Peace of Mind & Soul Portal</span>
+      </div>
+    </div>
+    <button class="drawer-close-btn" (click)="closeMobileMenu()" aria-label="Close Navigation Menu">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <!-- Sanctum Quick Status inside Sidebar -->
+  <div class="drawer-status-box">
+    <span class="status-dot"></span>
+    <span>Sanctum Open • 432 Hz Active</span>
+  </div>
+
+  <!-- Drawer Nav Links -->
+  <nav class="drawer-nav">
+    <a href="#portals" class="drawer-link" (click)="navAndClose('portals')">
+      <i class="fa-solid fa-archway text-gold"></i>
+      <span>The Two Portals</span>
+      <i class="fa-solid fa-chevron-right link-arrow"></i>
+    </a>
+    <a href="#stress-solutions" class="drawer-link" (click)="navAndClose('stress-solutions')">
+      <i class="fa-solid fa-heart-pulse text-vermilion"></i>
+      <span>Human Stress Solvers</span>
+      <i class="fa-solid fa-chevron-right link-arrow"></i>
+    </a>
+    <a href="#navigator" class="drawer-link" (click)="navAndClose('navigator')">
+      <i class="fa-solid fa-compass text-gold"></i>
+      <span>Peace Navigator</span>
+      <i class="fa-solid fa-chevron-right link-arrow"></i>
+    </a>
+    <a href="#breathing" class="drawer-link" (click)="navAndClose('breathing')">
+      <i class="fa-solid fa-wind text-purple"></i>
+      <span>4-7-8 Breathing Calmer</span>
+      <i class="fa-solid fa-chevron-right link-arrow"></i>
+    </a>
+    <a href="#virtual-diya" class="drawer-link" (click)="navAndClose('virtual-diya')">
+      <i class="fa-solid fa-fire text-saffron"></i>
+      <span>Sacred Virtual Diya</span>
+      <i class="fa-solid fa-chevron-right link-arrow"></i>
+    </a>
+    <a href="#peace-calculator" class="drawer-link" (click)="navAndClose('peace-calculator')">
+      <i class="fa-solid fa-gauge text-gold"></i>
+      <span>Inner Peace Score (IPQ)</span>
+      <i class="fa-solid fa-chevron-right link-arrow"></i>
+    </a>
+    <a href="#wisdom-matrix" class="drawer-link" (click)="navAndClose('wisdom-matrix')">
+      <i class="fa-solid fa-scale-balanced text-purple"></i>
+      <span>Dual Wisdom Matrix</span>
+      <i class="fa-solid fa-chevron-right link-arrow"></i>
+    </a>
+    <a href="#sacred-gallery" class="drawer-link" (click)="navAndClose('sacred-gallery')">
+      <i class="fa-regular fa-images text-saffron"></i>
+      <span>Visual Sanctum Gallery</span>
+      <i class="fa-solid fa-chevron-right link-arrow"></i>
+    </a>
+  </nav>
+
+  <!-- The Two Live Sister Portals inside Sidebar -->
+  <div class="drawer-portals-section">
+    <span class="dp-title">DIRECT SANCTUARY ACCESS</span>
+    <a [href]="psychiatristUrl" target="_blank" rel="noopener noreferrer" class="drawer-portal-card psychiatrist-card">
+      <div class="dp-icon"><i class="fa-solid fa-brain"></i></div>
+      <div class="dp-text">
+        <strong>Psychiatrist Sanctuary</strong>
+        <span>Access Portal ↗</span>
+      </div>
+    </a>
+
+    <a [href]="templeUrl" target="_blank" rel="noopener noreferrer" class="drawer-portal-card temple-card">
+      <div class="dp-icon"><i class="fa-solid fa-om"></i></div>
+      <div class="dp-text">
+        <strong>Sakoon-Temple Sanctum</strong>
+        <span>Access Portal ↗</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- Audio Controls at bottom of sidebar -->
+  <div class="drawer-footer-audio">
+    <button class="btn-sacred-gold btn-sm w-100" (click)="toggleAmbientChimes()">
+      <i class="fa-solid fa-bell"></i>
+      {{ chimesActive() ? 'Pause 432Hz Sound' : 'Play 432Hz Temple Sound' }}
+    </button>
+  </div>
+</aside>
+
+<!-- 3. HERO SECTION -->
+<section id="hero" class="hero-section">
+  <div class="container hero-container">
+    <div class="hero-badge-wrap">
+      <span class="section-badge">
+        <i class="fa-solid fa-certificate"></i> THE SUPREME GATEWAY TO INNER SERENITY
+      </span>
+    </div>
+
+    <h1 class="hero-title">
+      Where Modern <span class="highlight-purple">Psychiatric Science</span><br>
+      Meets Eternal <span class="highlight-gold">Temple Peace</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      Whether your heart is weighed down by relationship heartbreak, career burnout, financial terror, or unexplainable inner emptiness — find complete, 360° solace through our two dedicated world-class portals.
+    </p>
+
+    <!-- Visual Sacred Badges for Mobile & Tablet -->
+    <div class="hero-mobile-badges">
+      <span class="hm-badge"><i class="fa-solid fa-brain text-purple"></i> Clinical Psychiatry</span>
+      <span class="hm-badge"><i class="fa-solid fa-om text-gold"></i> Vedic Sanctum</span>
+      <span class="hm-badge"><i class="fa-solid fa-sparkles text-saffron"></i> 360° Inner Solace</span>
+    </div>
+
+    <!-- Quick Dual Pathway Buttons in Hero -->
+    <div class="hero-actions">
+      <a href="#card-psychiatrist" class="hero-portal-card-btn psychiatrist-theme">
+        <div class="icon-orb"><i class="fa-solid fa-brain"></i></div>
+        <div class="text-group">
+          <span class="category-label">Clinical Sanctuary</span>
+          <span class="portal-name">Sakoonsay Psychiatrist Portal</span>
+          <span class="portal-detail">Therapy • CBT • Anxiety & Depression Care</span>
+        </div>
+        <i class="fa-solid fa-arrow-right-long arrow-icon"></i>
+      </a>
+
+      <a href="#card-temple" class="hero-portal-card-btn temple-theme">
+        <div class="icon-orb"><i class="fa-solid fa-om"></i></div>
+        <div class="text-group">
+          <span class="category-label">Spiritual Sanctum</span>
+          <span class="portal-name">Sakoon-Temple Vedic Portal</span>
+          <span class="portal-detail">7 Chakras • Virtual Diya • Vedic Darshan</span>
+        </div>
+        <i class="fa-solid fa-arrow-right-long arrow-icon"></i>
+      </a>
+    </div>
+
+    <!-- Trust Stats Grid -->
+    <div class="hero-stats-grid">
+      <div class="stat-card glass-panel">
+        <div class="stat-number">15,000+</div>
+        <div class="stat-label">Distressed Minds Calmed</div>
+      </div>
+      <div class="stat-card glass-panel">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Confidential & Non-Judgmental</div>
+      </div>
+      <div class="stat-card glass-panel">
+        <div class="stat-number">7 Chakras</div>
+        <div class="stat-label">Vedic Energy Re-Alignment</div>
+      </div>
+      <div class="stat-card glass-panel">
+        <div class="stat-number">432 Hz</div>
+        <div class="stat-label">Continuous Sacred Harmony</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. THE TWO MASTER SHOWCASE CARDS (MAIN REQUEST OF USER) -->
+<section id="portals" class="portals-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-badge"><i class="fa-solid fa-archway"></i> OUR TWO DISTINCT SANCTUARIES</span>
+      <h2>Choose Your Gateway to Complete Peace</h2>
+      <p>
+        Human suffering stems from both the biological brain and the subtle spiritual soul. We built two specialized sister websites to resolve both dimensions completely.
+      </p>
+      <div class="gold-divider"></div>
+    </div>
+
+    <!-- The 2 Master Cards Showcase -->
+    <div class="portals-showcase-grid">
+      
+      <!-- CARD 1: SAKOONSAY PSYCHIATRIST & CLINICAL MENTAL HEALTH -->
+      <article id="card-psychiatrist" class="master-portal-card glass-panel clinical-card">
+        <div class="portal-image-container">
+          <img src="assets/images/hero.jpg" alt="Psychiatrist and Mental Wellness Therapy at Sakoonsay" class="portal-img">
+          <div class="portal-img-overlay clinical-overlay"></div>
+          <span class="portal-category-tag clinical-tag">
+            <i class="fa-solid fa-brain"></i> Clinical Psychiatry & Therapy
+          </span>
+          <div class="live-status-pill">
+            <span class="live-dot"></span> Clinical Doctors Available
+          </div>
+        </div>
+
+        <div class="portal-content">
+          <div class="portal-heading-row">
+            <div>
+              <span class="portal-sub">PORTAL 01</span>
+              <h3 class="portal-title">Sakoonsay Sanctuary</h3>
+              <p class="portal-role">Psychiatrist, Psychotherapy & Clinical Mental Health Platform</p>
+            </div>
+          </div>
+
+          <p class="portal-summary">
+            Specialized modern medical & psychological sanctuary designed to diagnose, treat, and alleviate severe clinical anxiety, chronic depression, workplace burnout, relationship trauma, and neurochemical imbalances.
+          </p>
+
+          <!-- Mobile Visual Badges (Replaces heavy text on small screens) -->
+          <div class="portal-chips-mobile">
+            <span class="portal-chip"><i class="fa-solid fa-user-doctor text-purple"></i> 1-on-1 Doctors</span>
+            <span class="portal-chip"><i class="fa-solid fa-brain text-purple"></i> CBT Therapy</span>
+            <span class="portal-chip"><i class="fa-solid fa-bolt text-purple"></i> Burnout Reset</span>
+            <span class="portal-chip"><i class="fa-solid fa-heart text-purple"></i> Couples Care</span>
+          </div>
+
+          <div class="portal-features-list">
+            <div class="feature-item">
+              <i class="fa-solid fa-circle-check text-gold"></i>
+              <span><strong>Certified Psychiatrists & Clinical Psychologists</strong> for 1-on-1 confidential consultations.</span>
+            </div>
+            <div class="feature-item">
+              <i class="fa-solid fa-circle-check text-gold"></i>
+              <span><strong>Cognitive Behavioral Therapy (CBT)</strong> & somatic vagus nerve reset protocols.</span>
+            </div>
+            <div class="feature-item">
+              <i class="fa-solid fa-circle-check text-gold"></i>
+              <span><strong>Burnout, Panic & Phobia Treatment</strong> with scientific neuroplastic recovery roadmaps.</span>
+            </div>
+            <div class="feature-item">
+              <i class="fa-solid fa-circle-check text-gold"></i>
+              <span><strong>Couples & Relationship Counseling</strong> to break toxic defensive cycles.</span>
+            </div>
+          </div>
+
+          <div class="portal-footer-actions">
+            <a [href]="psychiatristUrl" target="_blank" rel="noopener noreferrer" class="btn-royal-purple portal-launch-btn">
+              <span>Enter Clinical Sanctuary</span>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+            <button class="btn-outline-gold" (click)="openPreview('psychiatrist')">
+              <i class="fa-regular fa-eye"></i> Quick Details
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 2: SAKOON-TEMPLE SPIRITUAL SANCTUM -->
+      <article id="card-temple" class="master-portal-card glass-panel temple-card">
+        <div class="portal-image-container">
+          <img src="assets/images/hero-temple.jpg" alt="Sakoon-Temple Sacred Spiritual Sanctum" class="portal-img">
+          <div class="portal-img-overlay temple-overlay"></div>
+          <span class="portal-category-tag temple-tag">
+            <i class="fa-solid fa-om"></i> Vedic Spirituality & Temple
+          </span>
+          <div class="live-status-pill sacred-live-pill">
+            <span class="live-dot sacred-dot"></span> Sanctum Darshan Open
+          </div>
+        </div>
+
+        <div class="portal-content">
+          <div class="portal-heading-row">
+            <div>
+              <span class="portal-sub">PORTAL 02</span>
+              <h3 class="portal-title">Sakoon-Temple Sanctum</h3>
+              <p class="portal-role">Spiritual Awakening, Vedic Darshan & 7 Chakras Healing</p>
+            </div>
+          </div>
+
+          <p class="portal-summary">
+            A sacred cosmic sanctuary rooted in timeless Vedic wisdom. Experience live daily temple darshan, virtual ghee diya lighting, sacred havan rituals, kundali planetary harmony, and 432 Hz Solfeggio sound baths.
+          </p>
+
+          <!-- Mobile Visual Badges (Replaces heavy text on small screens) -->
+          <div class="portal-chips-mobile">
+            <span class="portal-chip"><i class="fa-solid fa-dharmachakra text-saffron"></i> 7 Chakras Balance</span>
+            <span class="portal-chip"><i class="fa-solid fa-fire text-saffron"></i> Diya & Havan</span>
+            <span class="portal-chip"><i class="fa-solid fa-star-and-crescent text-saffron"></i> Vedic Kundali</span>
+            <span class="portal-chip"><i class="fa-solid fa-bell text-saffron"></i> 432 Hz Sound Bath</span>
+          </div>
+
+          <div class="portal-features-list">
+            <div class="feature-item">
+              <i class="fa-solid fa-dharmachakra text-saffron"></i>
+              <span><strong>7 Chakras Energy Alignment</strong> & aura cleansing to purify subtle energy channels.</span>
+            </div>
+            <div class="feature-item">
+              <i class="fa-solid fa-fire text-saffron"></i>
+              <span><strong>Virtual Diya Lighting & Sacred Havan</strong> for personal, family and ancestral peace.</span>
+            </div>
+            <div class="feature-item">
+              <i class="fa-solid fa-star-and-crescent text-saffron"></i>
+              <span><strong>Vedic Astrology & Kundali Analysis</strong> to understand karmic cycles and dosha remedies.</span>
+            </div>
+            <div class="feature-item">
+              <i class="fa-solid fa-bell text-saffron"></i>
+              <span><strong>Sacred Solfeggio Sound Baths</strong> & Vedic chanting to dissolve existential loneliness.</span>
+            </div>
+          </div>
+
+          <div class="portal-footer-actions">
+            <a [href]="templeUrl" target="_blank" rel="noopener noreferrer" class="btn-saffron portal-launch-btn">
+              <span>Enter Spiritual Sanctum</span>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+            <button class="btn-outline-gold" (click)="openPreview('temple')">
+              <i class="fa-regular fa-eye"></i> Quick Details
+            </button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- 5. MAIN PEACE OF MIND & HUMAN PROBLEM STRESS SOLVING SECTION -->
+<section id="stress-solutions" class="stress-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-badge"><i class="fa-solid fa-hand-holding-heart"></i> SOLVING THE CORE HUMAN CRISIS</span>
+      <h2>Peace of Mind for Every Human Struggle</h2>
+      <p>
+        Every person carries a silent battle: a broken relationship, crushing work pressure, financial fear, or relentless overthinking. Explore our integrated dual healing for your exact distress.
+      </p>
+      <div class="gold-divider"></div>
+    </div>
+
+    <!-- Category Pills / Selector -->
+    <div class="problem-selector-nav">
+      @for (prob of stressProblems; track prob.id) {
+        <button 
+          class="problem-pill-btn" 
+          [class.active]="selectedProblemId() === prob.id"
+          (click)="selectProblem(prob.id)">
+          <i [class]="prob.icon"></i>
+          <span class="pill-full-text">{{ prob.category }}</span>
+          <span class="pill-short-text">{{ getShortCategory(prob.id) }}</span>
+        </button>
+      }
+    </div>
+
+    <!-- Active Problem Deep Dive Card -->
+    <div class="problem-detail-card glass-panel" [style.background]="currentProblem().bgGradient">
+      <div class="problem-header-area">
+        <div class="problem-icon-orb">
+          <i [class]="currentProblem().icon"></i>
+        </div>
+        <div class="problem-title-block">
+          <span class="problem-cat-badge">{{ currentProblem().category }}</span>
+          <h3>{{ currentProblem().title }}</h3>
+          <p class="problem-sub">{{ currentProblem().subtitle }}</p>
+        </div>
+        <div class="problem-illustration-box">
+          <div class="problem-inline-svg-wrap" [innerHTML]="getProblemSafeSvg(currentProblem().id)"></div>
+        </div>
+      </div>
+
+      <!-- Symptoms & What Hurts -->
+      <div class="symptoms-box">
+        <h4 class="box-title"><i class="fa-solid fa-triangle-exclamation text-vermilion"></i> What the Soul & Mind Suffer From:</h4>
+        <div class="symptoms-grid">
+          @for (sym of currentProblem().symptoms; track sym) {
+            <div class="symptom-tag">
+              <i class="fa-solid fa-bolt-lightning text-saffron"></i> {{ sym }}
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- The Dual Solution Side-by-Side -->
+      <div class="dual-solution-grid">
+        
+        <!-- Clinical Solution Column -->
+        <div class="solution-col clinical-solution glass-panel">
+          <div class="sol-header">
+            <div class="sol-badge-wrap">
+              <span class="sol-badge clinical-sub-badge"><i class="fa-solid fa-brain"></i> CLINICAL PSYCHIATRIST REMEDY</span>
+            </div>
+            <h4>{{ currentProblem().clinicalRemedy.title }}</h4>
+          </div>
+          <ul class="sol-points">
+            @for (point of currentProblem().clinicalRemedy.points; track point) {
+              <li><i class="fa-solid fa-check-double text-purple"></i> {{ point }}</li>
+            }
+          </ul>
+          <a [href]="psychiatristUrl" target="_blank" class="btn-royal-purple btn-sm sol-btn">
+            Consult Sakoonsay Psychiatrist <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <!-- Spiritual Solution Column -->
+        <div class="solution-col spiritual-solution glass-panel">
+          <div class="sol-header">
+            <div class="sol-badge-wrap">
+              <span class="sol-badge temple-sub-badge"><i class="fa-solid fa-om"></i> SACRED TEMPLE REMEDY</span>
+            </div>
+            <h4>{{ currentProblem().spiritualRemedy.title }}</h4>
+          </div>
+          <ul class="sol-points">
+            @for (point of currentProblem().spiritualRemedy.points; track point) {
+              <li><i class="fa-solid fa-om text-gold"></i> {{ point }}</li>
+            }
+          </ul>
+          <a [href]="templeUrl" target="_blank" class="btn-sacred-gold btn-sm sol-btn">
+            Enter Sakoon-Temple Sanctum <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Sacred Sanskrit Mantra & Affirmation Bar -->
+      <div class="mantra-affirmation-banner glass-panel">
+        <div class="mantra-left">
+          <div class="mantra-label"><i class="fa-solid fa-quote-left text-gold"></i> SACRED HEALING VIBRATION</div>
+          <div class="mantra-sanskrit">{{ currentProblem().mantra }}</div>
+          <div class="mantra-trans">{{ currentProblem().mantraMeaning }}</div>
+        </div>
+        <div class="affirmation-right">
+          <div class="affirmation-label"><i class="fa-solid fa-sparkles text-saffron"></i> DAILY MIND AFFIRMATION</div>
+          <blockquote class="affirmation-text">"{{ currentProblem().affirmation }}"</blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. INTERACTIVE PEACE OF MIND NAVIGATOR & ASSESSMENT -->
+<section id="navigator" class="navigator-section">
+  <div class="container">
+    <div class="navigator-wrapper glass-panel">
+      <div class="navigator-header text-center">
+        <span class="section-badge"><i class="fa-solid fa-compass"></i> PERSONALIZED PEACE PRESCRIPTION</span>
+        <h2>Find Your Custom Path to Calmer Waters</h2>
+        <p>Answer two simple questions to receive your tailored immediate clinical and spiritual roadmap.</p>
+        <div class="gold-divider"></div>
+      </div>
+
+      <div class="navigator-form-grid">
+        <!-- Question 1 -->
+        <div class="form-group-card">
+          <label class="form-label"><i class="fa-solid fa-bullseye text-gold"></i> 1. What is weighing heavily on your heart right now?</label>
+          <div class="option-button-grid">
+            <button class="option-btn" [class.selected]="userStressType() === 'relationship'" (click)="userStressType.set('relationship')">
+              <i class="fa-solid fa-heart-crack"></i>
+              <span class="pill-full-text">Relationship & Heartbreak</span>
+              <span class="pill-short-text">Relationship</span>
+            </button>
+            <button class="option-btn" [class.selected]="userStressType() === 'work'" (click)="userStressType.set('work')">
+              <i class="fa-solid fa-briefcase"></i>
+              <span class="pill-full-text">Job Burnout & Work Pressure</span>
+              <span class="pill-short-text">Career Burnout</span>
+            </button>
+            <button class="option-btn" [class.selected]="userStressType() === 'finance'" (click)="userStressType.set('finance')">
+              <i class="fa-solid fa-coins"></i>
+              <span class="pill-full-text">Financial Uncertainty & Debt</span>
+              <span class="pill-short-text">Financial Fear</span>
+            </button>
+            <button class="option-btn" [class.selected]="userStressType() === 'overthinking'" (click)="userStressType.set('overthinking')">
+              <i class="fa-solid fa-brain"></i>
+              <span class="pill-full-text">3 AM Anxiety & Panic Attacks</span>
+              <span class="pill-short-text">Mind & Panic</span>
+            </button>
+            <button class="option-btn" [class.selected]="userStressType() === 'family'" (click)="userStressType.set('family')">
+              <i class="fa-solid fa-people-roof"></i>
+              <span class="pill-full-text">Family Conflicts & Guilt</span>
+              <span class="pill-short-text">Family Conflict</span>
+            </button>
+            <button class="option-btn" [class.selected]="userStressType() === 'existential'" (click)="userStressType.set('existential')">
+              <i class="fa-solid fa-om"></i>
+              <span class="pill-full-text">Mid-Life Crisis & Grief</span>
+              <span class="pill-short-text">Soul Purpose</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="form-group-card">
+          <label class="form-label"><i class="fa-solid fa-gauge-high text-vermilion"></i> 2. What is your current stress intensity?</label>
+          <div class="intensity-slider-wrap">
+            <button class="intensity-btn mild" [class.selected]="userIntensity() === 'mild'" (click)="userIntensity.set('mild')">
+              <span class="intensity-title">Mild Restlessness</span>
+              <span class="intensity-desc">Functional but constantly uneasy</span>
+            </button>
+            <button class="intensity-btn moderate" [class.selected]="userIntensity() === 'moderate'" (click)="userIntensity.set('moderate')">
+              <span class="intensity-title">Moderate Distress</span>
+              <span class="intensity-desc">Affecting sleep, focus and mood</span>
+            </button>
+            <button class="intensity-btn high" [class.selected]="userIntensity() === 'high'" (click)="userIntensity.set('high')">
+              <span class="intensity-title">High Overwhelm</span>
+              <span class="intensity-desc">Frequent tears, chest tightness, panic</span>
+            </button>
+            <button class="intensity-btn severe" [class.selected]="userIntensity() === 'severe'" (click)="userIntensity.set('severe')">
+              <span class="intensity-title">Severe Crisis</span>
+              <span class="intensity-desc">Cannot function, hopeless thoughts</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Generated Immediate Prescription -->
+      <div class="prescription-result glass-panel">
+        <div class="prescription-header">
+          <div class="badge-rx">Rx SACRED & CLINICAL RECOMMENDATION</div>
+          <h3>Your Immediate 3-Step Relief Protocol</h3>
+        </div>
+
+        <div class="prescription-grid">
+          <!-- Step 1: Immediate Reset -->
+          <div class="rx-step-card">
+            <div class="rx-num">01</div>
+            <h4>Immediate 2-Minute Reset</h4>
+            <p>
+              @if (userIntensity() === 'severe' || userIntensity() === 'high') {
+                Place both feet flat on the ground. Sip cool water. Perform 3 physiological double-inhales through the nose, then exhale slowly through pursed lips.
+              } @else {
+                Take 5 conscious belly breaths. Roll your shoulders back and repeat the sacred sound "OM" to align your heart rate variability.
+              }
+            </p>
+          </div>
+
+          <!-- Step 2: Which Portal to Visit -->
+          <div class="rx-step-card primary-focus">
+            <div class="rx-num">02</div>
+            <h4>Recommended Primary Sanctuary</h4>
+            <p class="rx-portal-recommendation">
+              @if (userStressType() === 'work' || userStressType() === 'overthinking' || userIntensity() === 'severe') {
+                <strong><i class="fa-solid fa-brain text-purple"></i> Sakoonsay Clinical Psychiatrist Portal</strong><br>
+                Your nervous system needs clinical grounding, CBT defusion, and a certified doctor's assessment.
+              } @else if (userStressType() === 'family' || userStressType() === 'finance') {
+                <strong><i class="fa-solid fa-om text-gold"></i> Sakoon-Temple Spiritual Sanctum</strong><br>
+                Rebalance your Root/Navel Chakras, light a virtual sacred diya, and clear karmic heaviness.
+              } @else {
+                <strong><i class="fa-solid fa-scale-balanced text-saffron"></i> Dual Portal Healing (Both Sanctuaries)</strong><br>
+                Combine 1-on-1 counseling with heart-chakra meditation for total recovery.
+              }
+            </p>
+            <div class="rx-btn-wrap">
+              @if (userStressType() === 'work' || userStressType() === 'overthinking' || userIntensity() === 'severe') {
+                <a [href]="psychiatristUrl" target="_blank" class="btn-royal-purple btn-sm">Enter Psychiatrist Portal ↗</a>
+              } @else if (userStressType() === 'family' || userStressType() === 'finance') {
+                <a [href]="templeUrl" target="_blank" class="btn-saffron btn-sm">Enter Sakoon-Temple ↗</a>
+              } @else {
+                <a [href]="psychiatristUrl" target="_blank" class="btn-royal-purple btn-sm">Therapy Portal</a>
+                <a [href]="templeUrl" target="_blank" class="btn-saffron btn-sm">Temple Portal</a>
+              }
+            </div>
+          </div>
+
+          <!-- Step 3: Sacred Affirmation & Sound -->
+          <div class="rx-step-card">
+            <div class="rx-num">03</div>
+            <h4>Daily Calming Practice</h4>
+            <p>
+              Listen to the 432 Hz Solfeggio frequency every night before sleep. Repeat: <em>"I release what I cannot control; divine peace fills every cell of my body."</em>
+            </p>
+            <div class="rx-btn-wrap">
+              <button class="btn-outline-gold btn-sm" (click)="toggleAmbientChimes()">
+                <i class="fa-solid fa-bell"></i> {{ chimesActive() ? 'Pause Solfeggio' : 'Play 432Hz Solfeggio' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. INTERACTIVE 4-7-8 SACRED BREATHING CALMER -->
+<section id="breathing" class="breathing-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-badge"><i class="fa-solid fa-wind"></i> SOMATIC VAGUS NERVE CALMING</span>
+      <h2>The Sacred 4-7-8 Pranayama Calmer</h2>
+      <p>
+        Scientifically proven to lower cortisol, quiet the racing amygdala, and invoke deep spiritual stillness in under 3 minutes.
+      </p>
+      <div class="gold-divider"></div>
+    </div>
+
+    <div class="breathing-box glass-panel">
+      <!-- Animated Visual Breathing Circle -->
+      <div class="breath-visualizer-container">
+        <div class="breath-outer-ring" [class.inhale]="breathingActive() && breathPhase() === 'Inhale'" [class.hold]="breathingActive() && breathPhase() === 'Hold'" [class.exhale]="breathingActive() && breathPhase() === 'Exhale'">
+          <div class="breath-middle-ring">
+            <div class="breath-core">
+              <span class="phase-title">{{ breathingActive() ? breathPhase() : 'Ready' }}</span>
+              <span class="counter-display">{{ breathingActive() ? breathCounter() : '4-7-8' }}</span>
+              <span class="phase-instruction">
+                @if (!breathingActive()) {
+                  Click Start to Begin
+                } @else if (breathPhase() === 'Inhale') {
+                  Breathe in divine golden light (4s)
+                } @else if (breathPhase() === 'Hold') {
+                  Hold serenity inside your chest (7s)
+                } @else {
+                  Exhale all fear and tension (8s)
+                }
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls & Cycle Counter -->
+      <div class="breath-controls">
+        <button class="btn-sacred-gold btn-lg" (click)="toggleBreathing()">
+          <i [class]="breathingActive() ? 'fa-solid fa-stop' : 'fa-solid fa-play'"></i>
+          {{ breathingActive() ? 'Pause Exercise' : 'Start 4-7-8 Breathing' }}
+        </button>
+
+        @if (breathingActive()) {
+          <div class="cycle-indicator">
+            <span class="cycle-badge">Cycle #{{ breathCycle() }}</span>
+            <span class="cycle-hint">Complete 4 cycles for deep physiological calm.</span>
+          </div>
+        }
+      </div>
+
+      <!-- Instruction Steps Grid -->
+      <div class="breath-steps-info-grid">
+        <div class="b-step">
+          <span class="step-time">4 SECONDS</span>
+          <h5>Inhale Calm</h5>
+          <p>Breathe in slowly through the nose into your deep abdomen. Feel sacred oxygen rejuvenating your nervous system.</p>
+        </div>
+        <div class="b-step">
+          <span class="step-time">7 SECONDS</span>
+          <h5>Hold & Anchor</h5>
+          <p>Hold your breath gently without strain. Allow oxygen to oxygenate your bloodstream and quiet mental chatter.</p>
+        </div>
+        <div class="b-step">
+          <span class="step-time">8 SECONDS</span>
+          <h5>Exhale & Release</h5>
+          <p>Exhale completely through your mouth with a soft whoosh sound. Release every ounce of built-up tension.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7.5. INTERACTIVE VIRTUAL DIYA & SACRED SOUND BATH FREQUENCIES -->
+<section id="virtual-diya" class="virtual-diya-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-badge"><i class="fa-solid fa-fire text-saffron"></i> SACRED LIGHT & FREQUENCY HEALING</span>
+      <h2>Light a Sacred Virtual Diya for Peace of Mind</h2>
+      <p>
+        In ancient temple traditions, lighting a sacred ghee lamp symbolizes burning away distress, grief, and mental darkness to invoke divine clarity.
+      </p>
+      <div class="gold-divider"></div>
+    </div>
+
+    <div class="diya-interactive-card glass-panel">
+      @if (diyaPetalsActive()) {
+        <div class="petals-shower-container" aria-hidden="true">
+          <div class="petal p1">🌸</div>
+          <div class="petal p2">🪷</div>
+          <div class="petal p3">✨</div>
+          <div class="petal p4">🌸</div>
+          <div class="petal p5">🪷</div>
+          <div class="petal p6">✨</div>
+        </div>
+      }
+
+      <div class="diya-core-layout">
+        <!-- Left: Virtual Brass Diya with Animated Sacred Flame -->
+        <div class="diya-visual-wrap">
+          <div class="diya-pedestal">
+            <svg class="brass-diya-svg" viewBox="0 0 200 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="brassGrad" x1="0" y1="0" x2="200" y2="180">
+                  <stop offset="0%" stop-color="#FFF3B0"/>
+                  <stop offset="40%" stop-color="#D4AF37"/>
+                  <stop offset="80%" stop-color="#B3861B"/>
+                  <stop offset="100%" stop-color="#805B09"/>
+                </linearGradient>
+                <radialGradient id="flameInner" cx="50%" cy="60%" r="50%">
+                  <stop offset="0%" stop-color="#FFFFFF"/>
+                  <stop offset="35%" stop-color="#FFF3B0"/>
+                  <stop offset="70%" stop-color="#FF9800"/>
+                  <stop offset="100%" stop-color="#E65100"/>
+                </radialGradient>
+                <filter id="flameGlow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="8" result="blur"/>
+                  <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                </filter>
+              </defs>
+
+              <!-- Base Stand -->
+              <ellipse cx="100" cy="160" rx="60" ry="14" fill="url(#brassGrad)"/>
+              <path d="M85 155 L90 125 L110 125 L115 155 Z" fill="url(#brassGrad)"/>
+
+              <!-- Diya Body Bowl -->
+              <path d="M30 110 C30 145 170 145 170 110 C155 110 135 118 100 118 C65 118 45 110 30 110 Z" fill="url(#brassGrad)"/>
+              <ellipse cx="100" cy="110" rx="70" ry="16" fill="#805B09"/>
+              <ellipse cx="100" cy="108" rx="65" ry="13" fill="#D4AF37" opacity="0.6"/>
+
+              <!-- Sacred Flame (Interactive Lit state) -->
+              @if (diyaLit()) {
+                <g filter="url(#flameGlow)" class="animated-flame">
+                  <!-- Outer Warm Corona -->
+                  <path d="M100 20 C85 55 70 80 100 105 C130 80 115 55 100 20 Z" fill="url(#flameInner)" opacity="0.95"/>
+                  <!-- Core Divine Spark -->
+                  <path d="M100 45 C92 65 85 78 100 95 C115 78 108 65 100 45 Z" fill="#FFFFFF"/>
+                </g>
+              }
+            </svg>
+          </div>
+
+          <div class="diya-action-buttons">
+            <button class="btn-sacred-gold btn-md" (click)="lightDiya()">
+              <i class="fa-solid fa-fire text-saffron"></i>
+              {{ diyaLit() ? 'Offer Flower Petals & Re-light' : 'Light Sacred Diya' }}
+            </button>
+            <button class="btn-outline-gold btn-sm" (click)="toggleDiya()">
+              <i [class]="diyaLit() ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"></i>
+              {{ diyaLit() ? 'Blow Out Flame' : 'Kindle Diya' }}
+            </button>
+          </div>
+
+          <div class="community-counter">
+            <i class="fa-solid fa-om text-gold"></i>
+            <span><strong>{{ diyaCount() | number }}</strong> Sacred Diyas Lit by Calmed Souls</span>
+          </div>
+        </div>
+
+        <!-- Right: Prayer Dedication & Solfeggio Tuner -->
+        <div class="diya-prayer-wrap">
+          <div class="prayer-input-group">
+            <label class="prayer-label"><i class="fa-solid fa-hand-holding-heart text-gold"></i> Dedicate Your Diya Offering:</label>
+            <input 
+              type="text" 
+              class="diya-dedication-input" 
+              [(ngModel)]="diyaDedication" 
+              placeholder="e.g. For My Marriage, For My Children, For Inner Calm..." 
+            />
+            <p class="blessing-statement">
+              <i class="fa-solid fa-quote-left text-gold"></i>
+              "{{ blessingMessage() }}"
+            </p>
+          </div>
+
+          <!-- Multi-Frequency Solfeggio Sound Selector -->
+          <div class="solfeggio-selector-box">
+            <div class="solfeggio-header">
+              <span class="sol-title"><i class="fa-solid fa-music text-purple"></i> Solfeggio Sound Bath Frequency:</span>
+              <span class="active-freq-badge">{{ selectedFrequency() }} Hz Selected</span>
+            </div>
+
+            <div class="freq-buttons-grid">
+              @for (item of solfeggioFrequencies; track item.freq) {
+                <button 
+                  class="freq-chip-btn" 
+                  [class.active]="selectedFrequency() === item.freq"
+                  (click)="selectFrequency(item.freq)">
+                  <i [class]="item.icon"></i>
+                  <div class="freq-chip-text">
+                    <span class="freq-hz">{{ item.name }}</span>
+                    <span class="freq-tag">{{ item.title }}</span>
+                  </div>
+                </button>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7 Chakras Quick Energy Alignment Bar -->
+      <div class="chakras-energy-banner">
+        <div class="chakra-header-row">
+          <span class="ch-badge"><i class="fa-solid fa-dharmachakra"></i> 7 CHAKRAS SYSTEMIC HEALING</span>
+          <span class="ch-desc">Click any chakra to align psychological therapy with subtle spiritual energy:</span>
+        </div>
+
+        <div class="chakras-pills-row">
+          @for (ch of chakrasList; track ch.name; let idx = $index) {
+            <button 
+              class="chakra-circle-btn" 
+              [class.active]="selectedChakraIndex() === idx"
+              [style.--ch-color]="ch.color"
+              (click)="selectChakra(idx)">
+              <span class="chakra-dot"></span>
+              <span class="chakra-short-name">{{ ch.name.split(' ')[0] }}</span>
+            </button>
+          }
+        </div>
+
+        <!-- Selected Chakra Info Details -->
+        <div class="selected-chakra-panel">
+          <div class="chakra-info-head">
+            <h4 [style.color]="chakrasList[selectedChakraIndex()].color">
+              {{ chakrasList[selectedChakraIndex()].name }} • Element: {{ chakrasList[selectedChakraIndex()].element }}
+            </h4>
+          </div>
+          <div class="chakra-grid-details">
+            <div class="ch-detail-item">
+              <span class="dt-label"><i class="fa-solid fa-triangle-exclamation text-vermilion"></i> Emotional Imbalance:</span>
+              <p>{{ chakrasList[selectedChakraIndex()].stress }}</p>
+            </div>
+            <div class="ch-detail-item">
+              <span class="dt-label"><i class="fa-solid fa-shield-heart text-gold"></i> Integrated Remedy:</span>
+              <p>{{ chakrasList[selectedChakraIndex()].remedy }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 7.8. INNER PEACE QUOTIENT (IPQ) CALCULATOR -->
+<section id="peace-calculator" class="calculator-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-badge"><i class="fa-solid fa-gauge text-gold"></i> INNER PEACE QUOTIENT (IPQ)</span>
+      <h2>Calculate Your Real-Time Peace of Mind Score</h2>
+      <p>
+        Move the 4 sliders below to measure your nervous system equilibrium and receive your customized dual healing prescription.
+      </p>
+      <div class="gold-divider"></div>
+    </div>
+
+    <div class="calculator-box glass-panel">
+      <div class="calc-layout-grid">
+        <!-- Sliders Column -->
+        <div class="calc-sliders-column">
+          
+          <div class="slider-group">
+            <div class="slider-header-row">
+              <span class="sl-title"><i class="fa-solid fa-moon text-purple"></i> 1. Sleep Quality & Restful Nights</span>
+              <span class="sl-val-badge">{{ sleepScore() }} / 5</span>
+            </div>
+            <input 
+              type="range" 
+              min="1" 
+              max="5" 
+              [ngModel]="sleepScore()" 
+              (ngModelChange)="sleepScore.set($event)" 
+              class="sacred-slider" 
+            />
+            <div class="slider-endpoints">
+              <span>Insomniac & Racing (1)</span>
+              <span>Deep & Rejuvenating (5)</span>
+            </div>
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-header-row">
+              <span class="sl-title"><i class="fa-solid fa-brain text-gold"></i> 2. Mind Stilling & Freedom from Overthinking</span>
+              <span class="sl-val-badge">{{ overthinkingScore() }} / 5</span>
+            </div>
+            <input 
+              type="range" 
+              min="1" 
+              max="5" 
+              [ngModel]="overthinkingScore()" 
+              (ngModelChange)="overthinkingScore.set($event)" 
+              class="sacred-slider" 
+            />
+            <div class="slider-endpoints">
+              <span>Chronic Loops (1)</span>
+              <span>Calm Presence (5)</span>
+            </div>
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-header-row">
+              <span class="sl-title"><i class="fa-solid fa-heart text-vermilion"></i> 3. Relationship Security & Emotional Warmth</span>
+              <span class="sl-val-badge">{{ relationshipScore() }} / 5</span>
+            </div>
+            <input 
+              type="range" 
+              min="1" 
+              max="5" 
+              [ngModel]="relationshipScore()" 
+              (ngModelChange)="relationshipScore.set($event)" 
+              class="sacred-slider" 
+            />
+            <div class="slider-endpoints">
+              <span>Conflict & Fear (1)</span>
+              <span>Trust & Affection (5)</span>
+            </div>
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-header-row">
+              <span class="sl-title"><i class="fa-solid fa-om text-saffron"></i> 4. Life Purpose & Existential Clarity</span>
+              <span class="sl-val-badge">{{ purposeScore() }} / 5</span>
+            </div>
+            <input 
+              type="range" 
+              min="1" 
+              max="5" 
+              [ngModel]="purposeScore()" 
+              (ngModelChange)="purposeScore.set($event)" 
+              class="sacred-slider" 
+            />
+            <div class="slider-endpoints">
+              <span>Aimless & Hollow (1)</span>
+              <span>Deeply Fulfilled (5)</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Meter Gauge & Live Prescription Column -->
+        <div class="calc-result-column glass-panel">
+          <div class="circular-meter-wrap">
+            <div class="circle-dial" [style.--score-deg]="peaceScore() * 3.6 + 'deg'">
+              <div class="dial-inner">
+                <span class="score-number">{{ peaceScore() }}%</span>
+                <span class="score-label">Peace Index</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="score-diagnosis">
+            @if (peaceScore() >= 80) {
+              <span class="diagnosis-badge high-peace">🕊️ High Serenity & Resonance</span>
+              <p>Your nervous system and spirit are in beautiful harmony. Maintain this balance with daily temple chimes and mindfulness.</p>
+            } @else if (peaceScore() >= 50) {
+              <span class="diagnosis-badge moderate-peace">⚖️ Moderate Strain & Fatigue</span>
+              <p>Daily demands are wearing down your reserves. We recommend combining 1-on-1 counseling with 432 Hz evening sound baths.</p>
+            } @else {
+              <span class="diagnosis-badge critical-peace">🚨 High Turmoil & Overwhelm</span>
+              <p>Your mind is in urgent need of professional grounding. Enter our Clinical Sanctuary immediately for a doctor assessment.</p>
+            }
+          </div>
+
+          <div class="calc-cta-actions">
+            @if (peaceScore() < 60) {
+              <a [href]="psychiatristUrl" target="_blank" class="btn-royal-purple btn-sm w-100">
+                <i class="fa-solid fa-brain"></i> Book Clinical Therapy Session
+              </a>
+            } @else {
+              <a [href]="templeUrl" target="_blank" class="btn-saffron btn-sm w-100">
+                <i class="fa-solid fa-om"></i> Light Temple Diya for Continued Grace
+              </a>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. DUAL WISDOM COMPARISON MATRIX -->
+<section id="wisdom-matrix" class="matrix-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-badge"><i class="fa-solid fa-scale-balanced"></i> THE HARMONY OF SCIENCE & SPIRIT</span>
+      <h2>Why You Need Both: The Dual Healing Matrix</h2>
+      <p>
+        Western clinical psychiatry heals the neural wiring, while timeless Vedic spirituality heals the existential soul. Together, they create unbreakable inner peace.
+      </p>
+      <div class="gold-divider"></div>
+    </div>
+
+    <div class="matrix-table-wrap glass-panel">
+      <table class="matrix-table">
+        <thead>
+          <tr>
+            <th class="col-dimension">Healing Dimension</th>
+            <th class="col-clinical"><i class="fa-solid fa-brain text-purple"></i> Sakoonsay (Psychiatry & Therapy)</th>
+            <th class="col-temple"><i class="fa-solid fa-om text-gold"></i> Sakoon-Temple (Vedic Spirituality)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="dim-title"><strong>Root Target</strong></td>
+            <td>Neurobiology, cognitive distortions, trauma triggers, fight-or-flight nervous system.</td>
+            <td>Subtle energy body, 7 Chakras, karmic impressions (Samskaras), soul disconnect.</td>
+          </tr>
+          <tr>
+            <td class="dim-title"><strong>Primary Method</strong></td>
+            <td>1-on-1 Doctor Therapy, CBT, EMDR, Somatic grounding, psychiatric evaluation.</td>
+            <td>Sacred Temple Darshan, 432 Hz Solfeggio chanting, Ghee Diya, Havan, Kundali.</td>
+          </tr>
+          <tr>
+            <td class="dim-title"><strong>For Panic & Anxiety</strong></td>
+            <td>Vagus nerve reset, 5-4-3-2-1 grounding, cognitive restructuring of worst-case loops.</td>
+            <td>Maha Mrityunjaya mantra, sacred temple bell frequencies, sandalwood chandan.</td>
+          </tr>
+          <tr>
+            <td class="dim-title"><strong>For Heartbreak & Grief</strong></td>
+            <td>Attachment repair therapy, grief desensitization, emotional boundaries.</td>
+            <td>Anahata Heart Chakra cleansing, Kshama (forgiveness) prayers, sacred surrender.</td>
+          </tr>
+          <tr>
+            <td class="dim-title"><strong>For Career Burnout</strong></td>
+            <td>Workplace boundary frameworks, cortisol management, cognitive defusion.</td>
+            <td>Karma Yoga philosophy (action without anxiety), Manipura Solar Plexus empowerment.</td>
+          </tr>
+          <tr>
+            <td class="dim-title"><strong>Ultimate Outcome</strong></td>
+            <td>Mental stability, emotional regulation, rational clarity, healthy boundaries.</td>
+            <td>Inner serenity, spiritual purpose, profound bliss, universal connection.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 9. SACRED GALLERY OF PEACE & RESTORATION -->
+<section id="sacred-gallery" class="gallery-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-badge"><i class="fa-regular fa-images"></i> VISUAL SANCTUARY</span>
+      <h2>Glimpses of Solace & Divine Healing</h2>
+      <p>Witness the peaceful environments, sacred rituals, and therapeutic modalities awaiting your arrival.</p>
+      <div class="gold-divider"></div>
+    </div>
+
+    <div class="gallery-mosaic">
+      <!-- Card 1 -->
+      <div class="mosaic-item glass-panel">
+        <div class="mosaic-img-box">
+          <img src="assets/images/sound-bath.jpg" alt="432 Hz Solfeggio Sound Bath">
+        </div>
+        <div class="mosaic-caption">
+          <span class="caption-tag">Sound Healing</span>
+          <h4>432 Hz Solfeggio Resonator</h4>
+          <p>Vibrational crystal and Tibetan bowls that dissolve stress hormones.</p>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="mosaic-item glass-panel">
+        <div class="mosaic-img-box">
+          <img src="assets/images/chakra-healing.jpg" alt="7 Chakras Healing & Alignment">
+        </div>
+        <div class="mosaic-caption">
+          <span class="caption-tag">Energy Medicine</span>
+          <h4>7 Chakras Realignment</h4>
+          <p>Balancing subtle energy nodes from Muladhara to Sahasrara.</p>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="mosaic-item glass-panel">
+        <div class="mosaic-img-box">
+          <img src="assets/images/sanctum.jpg" alt="Sacred Inner Sanctum Darshan">
+        </div>
+        <div class="mosaic-caption">
+          <span class="caption-tag">Sacred Sanctum</span>
+          <h4>Inner Temple Darshan</h4>
+          <p>Where thousands experience quiet reverence and emotional liberation.</p>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="mosaic-item glass-panel">
+        <div class="mosaic-img-box">
+          <img src="assets/images/havan.jpg" alt="Vedic Sacred Havan">
+        </div>
+        <div class="mosaic-caption">
+          <span class="caption-tag">Purification</span>
+          <h4>Sacred Vedic Agni Havan</h4>
+          <p>Consuming worries and negative energy through pure sacrificial fire.</p>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="mosaic-item glass-panel">
+        <div class="mosaic-img-box">
+          <img src="assets/images/kundali.jpg" alt="Vedic Kundali Astrology">
+        </div>
+        <div class="mosaic-caption">
+          <span class="caption-tag">Cosmic Harmony</span>
+          <h4>Kundali & Cosmic Timing</h4>
+          <p>Deciphering planetary cycles that influence life pressure and decisions.</p>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="mosaic-item glass-panel">
+        <div class="mosaic-img-box">
+          <img src="assets/images/family-puja.jpg" alt="Family Peace Rituals">
+        </div>
+        <div class="mosaic-caption">
+          <span class="caption-tag">Home Harmony</span>
+          <h4>Griha & Family Peace Puja</h4>
+          <p>Healing strained relationships and bringing auspicious joy into households.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. DAILY SACRED MANTRA & WISDOM DISPENSER -->
+<section class="mantra-dispenser-section">
+  <div class="container">
+    <div class="mantra-card-container glass-panel">
+      <div class="mantra-left-decor">
+        <i class="fa-solid fa-om decor-om"></i>
+      </div>
+
+      <div class="mantra-core-content">
+        <span class="mantra-header-tag"><i class="fa-solid fa-feather-pointed"></i> DAILY SACRED WISDOM & NEURO-INSIGHT</span>
+        
+        <h3 class="sanskrit-text">{{ currentMantra().sanskrit }}</h3>
+        <p class="english-phonetic">"{{ currentMantra().english }}" • <em>{{ currentMantra().source }}</em></p>
+        
+        <p class="meaning-prose">
+          {{ currentMantra().meaning }}
+        </p>
+
+        <div class="psychology-box">
+          <i class="fa-solid fa-brain text-purple"></i>
+          <span><strong>Neuroscience Insight:</strong> {{ currentMantra().psychology }}</span>
+        </div>
+
+        <div class="mantra-actions-row">
+          <button class="btn-sacred-gold btn-sm" (click)="nextMantra()">
+            <i class="fa-solid fa-rotate-right"></i> Draw Another Sacred Wisdom
+          </button>
+          
+          <button class="btn-outline-gold btn-sm" (click)="copyMantra()">
+            <i class="fa-regular fa-copy"></i> Copy Mantra
+          </button>
+
+          @if (copiedAlert()) {
+            <span class="copy-success-badge"><i class="fa-solid fa-check"></i> Copied to clipboard!</span>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11. TESTIMONIALS OF SERENITY -->
+<section class="testimonials-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-badge"><i class="fa-solid fa-quote-right"></i> VOICES OF RESTORATION</span>
+      <h2>Real Stories of Healing & Rebirth</h2>
+      <p>Read how everyday people walked out of the storm of depression, panic, and marital distress.</p>
+      <div class="gold-divider"></div>
+    </div>
+
+    <div class="testimonials-grid">
+      @for (test of testimonials; track test.name) {
+        <div class="test-card glass-panel">
+          <div class="stars-row">
+            @for (star of [1,2,3,4,5]; track star) {
+              <i class="fa-solid fa-star text-gold"></i>
+            }
+          </div>
+          <p class="test-quote">"{{ test.quote }}"</p>
+          <div class="test-meta">
+            <div class="avatar-circle">{{ test.avatarText }}</div>
+            <div class="meta-info">
+              <span class="meta-name">{{ test.name }}</span>
+              <span class="meta-loc">{{ test.location }}</span>
+              <span class="meta-sol"><i class="fa-solid fa-shield-heart text-saffron"></i> {{ test.solution }}</span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- 12. CALL TO ACTION: STEP INTO YOUR SANCTUARY -->
+<section class="final-cta-section">
+  <div class="container">
+    <div class="final-cta-box glass-panel text-center">
+      <span class="section-badge"><i class="fa-solid fa-sparkles"></i> YOUR PEACE IS NON-NEGOTIABLE</span>
+      <h2>Do Not Carry Your Pain Alone Any Longer</h2>
+      <p>
+        The storm inside your mind will settle the moment you reach out for help. Choose the doorway that resonates with your heart right now:
+      </p>
+
+      <div class="dual-cta-buttons">
+        <a [href]="psychiatristUrl" target="_blank" class="btn-royal-purple btn-lg cta-btn">
+          <i class="fa-solid fa-brain"></i>
+          <div class="btn-text-block">
+            <span class="top-txt">Need Clinical Counseling?</span>
+            <span class="main-txt">Enter Sakoonsay Sanctuary ↗</span>
+          </div>
+        </a>
+
+        <a [href]="templeUrl" target="_blank" class="btn-saffron btn-lg cta-btn">
+          <i class="fa-solid fa-om"></i>
+          <div class="btn-text-block">
+            <span class="top-txt">Need Spiritual Blessing?</span>
+            <span class="main-txt">Enter Sakoon-Temple Portal ↗</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="emergency-disclaimer">
+        <i class="fa-solid fa-heart-pulse text-vermilion"></i>
+        <span><strong>Immediate Crisis Support:</strong> If you or someone you know is in acute danger or experiencing self-harm thoughts, please reach out immediately to your local 24/7 mental health emergency helpline (e.g. Tele-MANAS: 14416 or Vandrevala Foundation: 9999 666 555).</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 13. ROYAL TEMPLE & CLINICAL FOOTER -->
+<footer class="main-footer">
+  <div class="container footer-container">
+    <div class="footer-top-grid">
+      <!-- Col 1: Brand & Philosophy -->
+      <div class="footer-col brand-col">
+        <div class="footer-brand">
+          <i class="fa-solid fa-om text-gold brand-footer-icon"></i>
+          <span class="footer-brand-title">SAKOONSAY</span>
+        </div>
+        <p class="footer-desc">
+          The supreme unified sanctuary harmonizing modern psychiatric clinical science with eternal Vedic spiritual wisdom. Designed to heal human stress, relationship fractures, workplace burnout, and spiritual longing.
+        </p>
+        <div class="footer-mantra-line">
+          ॐ असतो मा सद्गमय | तमसो मा ज्योतिर्गमय
+        </div>
+      </div>
+
+      <!-- Col 2: The Two Portals -->
+      <div class="footer-col">
+        <h4 class="footer-col-title">The Two Sanctuaries</h4>
+        <ul class="footer-links">
+          <li>
+            <a [href]="psychiatristUrl" target="_blank" rel="noopener noreferrer">
+              <i class="fa-solid fa-brain text-purple"></i> Sakoonsay Clinical Sanctuary
+            </a>
+          </li>
+          <li>
+            <a [href]="templeUrl" target="_blank" rel="noopener noreferrer">
+              <i class="fa-solid fa-om text-gold"></i> Sakoon-Temple Spiritual Sanctum
+            </a>
+          </li>
+          <li><a href="#card-psychiatrist">Clinical Doctor Services</a></li>
+          <li><a href="#card-temple">Vedic Temple Rituals & Darshan</a></li>
+          <li><a href="#wisdom-matrix">Dual Wisdom Comparison</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Stress Solving Pathways -->
+      <div class="footer-col">
+        <h4 class="footer-col-title">Stress Solutions</h4>
+        <ul class="footer-links">
+          <li><a href="#stress-solutions" (click)="selectProblem('relationship')">Relationship & Marital Grief</a></li>
+          <li><a href="#stress-solutions" (click)="selectProblem('work')">Workplace Burnout & Overload</a></li>
+          <li><a href="#stress-solutions" (click)="selectProblem('finance')">Financial Panic & Scarcity</a></li>
+          <li><a href="#stress-solutions" (click)="selectProblem('overthinking')">3 AM Overthinking & Panic</a></li>
+          <li><a href="#stress-solutions" (click)="selectProblem('family')">Generational & Family Friction</a></li>
+          <li><a href="#stress-solutions" (click)="selectProblem('existential')">Existential Meaning & Loss</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Sacred Sanctum Hours -->
+      <div class="footer-col">
+        <h4 class="footer-col-title">Sanctum Timings</h4>
+        <ul class="footer-timings">
+          <li><span>Morning Aarti:</span> <strong>05:30 AM - 07:00 AM</strong></li>
+          <li><span>Clinical Therapy:</span> <strong>09:00 AM - 08:00 PM</strong></li>
+          <li><span>Sandhya Aarti:</span> <strong>06:30 PM - 07:30 PM</strong></li>
+          <li><span>432 Hz Solfeggio:</span> <strong>24 Hours Continuous</strong></li>
+        </ul>
+        <div class="footer-audio-quick">
+          <button class="btn-sacred-gold btn-sm w-100" (click)="toggleAmbientChimes()">
+            <i class="fa-solid fa-bell"></i> {{ chimesActive() ? 'Mute 432Hz Sound' : 'Play 432Hz Sound' }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom-bar">
+      <p>© 2026 Sakoonsay. All Rights Reserved. Divine Peace, Royal Healing & Modern Psychological Care.</p>
+      <div class="footer-sub-links">
+        <a href="#hero">Back to Top <i class="fa-solid fa-arrow-up"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- 14. PREVIEW MODAL (When user clicks 'Quick Details' on either portal) -->
+@if (activePreviewModal()) {
+  <div class="preview-modal-backdrop" (click)="closePreview()">
+    <div class="preview-modal-card glass-panel" (click)="$event.stopPropagation()">
+      <button class="modal-close-btn" (click)="closePreview()" title="Close Modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      @if (activePreviewModal() === 'psychiatrist') {
+        <div class="modal-header clinical-modal-header">
+          <span class="section-badge"><i class="fa-solid fa-brain"></i> SAKOONSAY CLINICAL PORTAL OVERVIEW</span>
+          <h3>Psychiatrist & Mental Health Therapy Sanctuary</h3>
+        </div>
+        <div class="modal-body">
+          <p>
+            <strong>Sakoonsay</strong> operates as an evidence-based clinical therapy sanctuary where licensed psychiatrists, psychotherapists, and mental health coaches guide individuals and families out of emotional turmoil.
+          </p>
+          <div class="modal-specs-list">
+            <div class="spec-row">
+              <span class="spec-label">Domain Focus:</span>
+              <span>Clinical Psychiatry, CBT, Trauma Desensitization, Panic Disorder, Chronic Depression.</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-label">Key Highlight:</span>
+              <span>100% confidential doctor-patient video consultations and personalized neuro-reset programs.</span>
+            </div>
+          </div>
+          <div class="modal-actions">
+            <a [href]="psychiatristUrl" target="_blank" rel="noopener noreferrer" class="btn-royal-purple">
+              Open Clinical Sanctuary ↗
+            </a>
+            <button class="btn-outline-gold" (click)="closePreview()">Close</button>
+          </div>
+        </div>
+      }
+
+      @if (activePreviewModal() === 'temple') {
+        <div class="modal-header temple-modal-header">
+          <span class="section-badge"><i class="fa-solid fa-om"></i> SAKOON-TEMPLE SANCTUM OVERVIEW</span>
+          <h3>Spiritual Awakening & Vedic Temple Blessings</h3>
+        </div>
+        <div class="modal-body">
+          <p>
+            <strong>Sakoon-Temple</strong> provides timeless Vedic rituals, live sanctum darshan, sacred havan, virtual ghee diya lighting, 7 Chakras energy clearing, and Vedic astrological consultations for karmic peace.
+          </p>
+          <div class="modal-specs-list">
+            <div class="spec-row">
+              <span class="spec-label">Domain Focus:</span>
+              <span>7 Chakras Balancing, Virtual Darshan & Diya, Vedic Astrological Kundali, Sacred Havan & Aarti.</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-label">Key Highlight:</span>
+              <span>Immersive 432 Hz Solfeggio sound baths, temple chimes, and sacred puja bookings.</span>
+            </div>
+          </div>
+          <div class="modal-actions">
+            <a [href]="templeUrl" target="_blank" rel="noopener noreferrer" class="btn-saffron">
+              Open Spiritual Sanctum ↗
+            </a>
+            <button class="btn-outline-gold" (click)="closePreview()">Close</button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+}
+
