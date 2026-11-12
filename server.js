@@ -3,6 +3,30 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
+// Auto-load .env file if present (Zero-dependency parser)
+const envPath = path.join(__dirname, '.env');
+if (fs.existsSync(envPath)) {
+  try {
+    const envLines = fs.readFileSync(envPath, 'utf8').split('\n');
+    for (const rawLine of envLines) {
+      const line = rawLine.trim();
+      if (line && !line.startsWith('#') && line.includes('=')) {
+        const eqIdx = line.indexOf('=');
+        const key = line.slice(0, eqIdx).trim();
+        let val = line.slice(eqIdx + 1).trim();
+        if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+          val = val.slice(1, -1);
+        }
+        if (!process.env[key]) {
+          process.env[key] = val;
+        }
+      }
+    }
+  } catch (err) {
+    console.warn('Could not parse .env file:', err.message);
+  }
+}
+
 const PORT = process.env.PORT || 4300;
 const DIST_DIR = path.join(__dirname, 'dist', 'main-sakoonsay', 'browser');
 
